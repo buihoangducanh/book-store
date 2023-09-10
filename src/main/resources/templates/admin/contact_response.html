@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Static Navigation - SB Admin</title>
+	<link th:href="@{/css/admin/styles.css}" rel="stylesheet" />
+	<script th:src="@{/js/admin/fontawesome-all.js}" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<div th:replace="admin/fragments/header :: header_nav"></div>
+	<div id="layoutSidenav">
+		<div th:replace="admin/fragments/side_navbar :: side_navbar"></div>
+		<!-- Copy den day-->
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid px-4">
+
+					<!-- Chỗ cần thay đổi -->
+					<div class="container mt-5">
+						<div th:if="${param.success}" class="alert alert-success" th:text="${message}" role="alert">
+						</div>
+
+						<h2>Trả lời khách hàng</h2>
+						<form th:action="@{/admin/contacts/submit_email}" th:object="${newEmail}" method="post">
+							<!-- Book ID -->
+							<input type="hidden" th:name="uid"  th:value="${uid}">
+
+							<br />
+							<!-- Book Title -->
+							<div class="form-group">
+								<label for="received">Người nhận:</label>
+								<input required type="email" class="form-control mt-2" id="received"
+									   name="responseTitle" th:field="*{to}"/>
+							</div>
+							<br />
+							<div class="form-group">
+								<label for="categoryName">Tiêu đề:</label>
+								<input required type="text" class="form-control mt-2" id="categoryName"
+									name="responseTitle" th:field="*{subject}" placeholder="Enter response's title" />
+							</div>
+							<br />
+							<div class="form-group">
+								<label for="description">Nội dung:</label>
+								<textarea rows="6" class="form-control" id="description" name="description"
+								th:field="*{message}"	placeholder="Enter response's content"></textarea>
+							</div>
+							<br />
+
+							<!-- Submit Button -->
+							<button class="btn btn-primary mb-3 mt-3 mb-4">Submit</button>
+						</form>
+					</div>
+				</div>
+			</main>
+			<div th:replace="admin/fragments/footer :: footer"></div>
+		</div>
+	</div>
+	<script th:src="@{/js/admin/bootstrap.bundle.min.js}" crossorigin="anonymous"></script>
+	<script th:src="@{/js/admin/jquery-360-min.js}"></script>
+	<script th:src="@{/js/admin/scripts.js}"></script>
+	<script th:src="@{/js/admin/AddOrder.js}"></script>
+</body>
+
+</html>

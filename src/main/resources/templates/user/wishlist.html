@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Rook Book Store</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Favicons -->
+	<link th:href="@{/images/favicon.ico}" rel="shortcut icon">
+	<link th:href="@{/images/icon.png}" rel=" apple-touch-icon" }>
+
+	<!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+	<link th:href="@{/css/user/open_sans.css}" rel="stylesheet">
+	<link th:href="@{/css/user/poppins.css}" rel="stylesheet">
+	<link th:href="@{/css/user/roboto.css}" rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link th:href="@{/css/user/bootstrap.min.css}" rel="stylesheet">
+
+	<!-- Plugins css -->
+	<link th:href="@{/css/user/font-awesome.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/bicon.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/pe-icon-7-stroke.css}" rel="stylesheet">
+	<link th:href="@{/css/user/slick.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/fakeloader.css}" rel="stylesheet">
+	<link th:href="@{/css/user/nivo-slider.css}" rel="stylesheet">
+	<link th:href="@{/css/user/nivo-preview-2.css}" rel="stylesheet">
+	<link th:href="@{/css/user/owl.carousel.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/owl.theme.default.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/material-design-iconic-font.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/animation.css}" rel="stylesheet">
+	<link th:href="@{/css/user/fancybox.css}" rel="stylesheet">
+	<link th:href="@{/css/user/mainmenu.css}" rel="stylesheet">
+	<link th:href="@{/css/user/fotorama.css}" rel="stylesheet">
+	<link th:href="@{/css/user/jquery-ui.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/lightbox.css}" rel="stylesheet">
+	<link th:href="@{/css/user/style.css}" rel="stylesheet">
+
+	<!-- Cusom css -->
+	<link th:href="@{/css/user/custom.css}" rel="stylesheet">
+
+	<!-- Modernizer js -->
+	<script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+	<style>
+		.mainmenu__nav .meninmenu li a {
+			color: white;
+		}
+	</style>
+
+	<style>
+		.ft__logo a img {
+			max-width: 20%;
+		}
+		.prod-img{
+			max-width: 100px;
+		}
+	</style>
+
+</head>
+
+<body>
+	<!--[if lte IE 9]>
+		<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+	<![endif]-->
+
+	<!-- Main wrapper -->
+	<div class="wrapper" id="wrapper">
+
+		<!-- Header -->
+		<header th:replace="user/fragments/header:: header"></header>
+		<!-- //Header -->
+		<!-- Start Search Popup -->
+		<div th:replace="user/fragments/search_popup :: search_popup"></div>
+		<!-- End Search Popup -->
+		<!-- Start Bradcaump area -->
+		<div class="ht__bradcaump__area bg-image--5">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="bradcaump__inner text-center">
+							<h2 class="bradcaump-title">Wishlist</h2>
+							<nav class="bradcaump-content">
+								<a class="breadcrumb_item" th:href="@{/}">Home</a>
+								<span class="brd-separetor">/</span>
+								<span class="breadcrumb_item active">Wishlist</span>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Bradcaump area -->
+		<!-- cart-main-area start -->
+		<div class="wishlist-area section-padding--lg bg__white">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="wishlist-content">
+
+								<div class="wishlist-table wnro__table table-responsive">
+									<table>
+										<thead>
+											<tr>
+												<th class="product-remove text-center"></th>
+												<th class="product-thumbnail text-center">Image</th>
+												<th class="product-name text-center"><span class="nobr">Product Name</span></th>
+												<th class="product-price text-center"><span class="nobr"> Unit Price </span></th>
+												<th class="product-stock-stauts text-center"><span class="nobr"> Stock Status
+													</span></th>
+												<th class="product-add-to-cart"></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="item : ${favoritesList}">
+												<td class="product-remove px-3">
+													<button th:onclick="'removeFromWishlist('+${item.id} +')'">×</button>
+												</td>
+												<td class="product-thumbnail px-3 prod-img"><a th:href="@{/shop/product/__${item.id}__}"><img
+															th:src="@{/cover_images/__${item.coverImage}__}" alt=""></a></td>
+												<td class="product-name px-3"><a th:href="@{/shop/product/__${item.id}__}" th:text="${item.title}"></a></td>
+												<td class="product-price px-3"><span class="amount"
+																					 th:text="${#numbers.formatDecimal(__${(item.salePrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+												></span></td>
+												<td class="product-stock-status px-3"><span class="wishlist-in-stock">In
+														Stock</span></td>
+												<td class=" px-3">
+													<button class="btn btn-danger text-light py-2 px-4"
+															th:onclick="'addToCart(' + ${item.id} + ')'">
+														Add to Cart
+													</button>
+												</td>
+											</tr>
+
+										</tbody>
+									</table>
+								</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- cart-main-area end -->
+		<!-- Footer Area -->
+		<footer th:replace="user/fragments/footer :: footer"></footer>
+		<!-- //Footer Area -->
+
+	</div>
+
+
+	<script>
+
+		function removeFromWishlist(productId){
+
+			$.ajax({
+				type: "POST",
+				url: "/wishlist/remove",
+				data: {
+					bookId: productId
+				},
+				success: function(response) {
+					if(response === "ok")
+					{
+						alert("Đã xoá khỏi danh sách yêu thích");
+						window.location.reload();
+					}else{
+						alert("Bạn cần đăng nhập trước");
+						window.location.href = "/login";
+					}
+				},
+				error: function(xhr, status, error) {
+
+					alert("Đã có lỗi : " + error);
+				}
+			});
+		}
+		function addToCart(productId) {
+			var data = JSON.stringify({"productId": productId, "quantity": 1});
+
+			$.ajax({
+				type: "POST",
+				url: "/cart/add-to-cart",
+				contentType: "application/json",
+				data: data,
+				success: function (data) {
+					if (data === "ok") {
+						alert("Thêm sản phẩm vào giỏ thành công");
+						// Update cart quantity in the header
+						updateCartQuantity();
+					} else {
+						alert("Bạn cần đăng nhập trước");
+						window.location.href = "/login"; // Update the URL accordingly
+					}
+				},
+				error: function () {
+					alert("Đã xảy ra lỗi");
+				}
+			});
+		}
+
+		function updateCartQuantity() {
+			$.ajax({
+				type: "GET",
+				url: "/cart/cart-item-count",  // Replace with the actual endpoint to get cart item count
+				success: function (data) {
+					$("#cart-quantity").text(data); // Update the cart quantity in the header
+				},
+				error: function () {
+					console.log("Error updating cart quantity.");
+				}
+			});
+		}
+	</script>
+	<!-- //Main wrapper -->
+	<!-- JS Files -->
+	<script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/user/popper.min.js}"></script>
+	<script th:src="@{/js/user/bootstrap.min.js}"></script>
+	<script th:src="@{/js/user/plugins.js}"></script>
+	<script th:src="@{/js/user/active.js}"></script>
+
+</body>
+
+</html>

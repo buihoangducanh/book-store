@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Order details</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Favicons -->
+	<link th:href="@{/images/favicon.ico}" rel="shortcut icon">
+	<link th:href="@{/images/icon.png}" rel=" apple-touch-icon" }>
+
+	<!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+	<link th:href="@{/css/user/open_sans.css}" rel="stylesheet">
+	<link th:href="@{/css/user/poppins.css}" rel="stylesheet">
+	<link th:href="@{/css/user/roboto.css}" rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link th:href="@{/css/user/bootstrap.min.css}" rel="stylesheet">
+
+	<!-- Plugins css -->
+	<link th:href="@{/css/user/font-awesome.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/bicon.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/pe-icon-7-stroke.css}" rel="stylesheet">
+	<link th:href="@{/css/user/slick.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/fakeloader.css}" rel="stylesheet">
+	<link th:href="@{/css/user/nivo-slider.css}" rel="stylesheet">
+	<link th:href="@{/css/user/nivo-preview-2.css}" rel="stylesheet">
+	<link th:href="@{/css/user/owl.carousel.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/owl.theme.default.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/material-design-iconic-font.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/animation.css}" rel="stylesheet">
+	<link th:href="@{/css/user/fancybox.css}" rel="stylesheet">
+	<link th:href="@{/css/user/mainmenu.css}" rel="stylesheet">
+	<link th:href="@{/css/user/fotorama.css}" rel="stylesheet">
+	<link th:href="@{/css/user/jquery-ui.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/lightbox.css}" rel="stylesheet">
+	<link th:href="@{/css/user/style.css}" rel="stylesheet">
+
+	<!-- Cusom css -->
+	<link th:href="@{/css/user/custom.css}" rel="stylesheet">
+
+	<!-- Modernizer js -->
+	<script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+	<style>
+		/* Reset some default table styles */
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			table-layout: fixed;
+		}
+
+		/* Style for the table header row */
+		thead th {
+			text-align: left;
+			background-color: #f2f2f2;
+			padding: 10px;
+			font-weight: bold;
+		}
+
+		/* Style for the table data rows */
+		tbody td {
+			padding: 10px;
+			border-bottom: 1px solid #ddd;
+		}
+
+		/* Style for the product image cell */
+		.product-thumbnail img {
+			max-width: 100px;
+			height: auto;
+			display: block;
+			margin: 0 auto;
+		}
+
+		/* Center the product name */
+		.product-name {
+			text-align: center;
+		}
+
+		/* Style for product price and subtotal cells */
+		.product-price,
+		.product-subtotal {
+			text-align: center;
+		}
+
+		/* Style for the product quantity cell */
+		.product-quantity {
+			text-align: center;
+		}
+
+		/* Style for the order details header section */
+		.order-details-header {
+			margin-bottom: 20px;
+		}
+
+		/* Style for the order details header section p tags */
+		.order-details-header p {
+			margin: 5px 0;
+		}
+
+		.cancel-order-btn {
+			display: inline-block;
+			margin: 10px auto;
+			padding: 8px 15px;
+			background-color: orange;
+			text-decoration: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		.cancel-order-btn:hover {
+			background-color: #cc0000;
+			color: black;
+		}
+
+		.mainmenu__nav .meninmenu li a {
+			color: white;
+		}
+	</style>
+
+	<style>
+		.ft__logo a img {
+			max-width: 20%;
+		}
+	</style>
+
+</head>
+
+<body>
+	<!-- Main wrapper -->
+	<div class="wrapper" id="wrapper">
+		<!-- Header -->
+		<header th:replace="user/fragments/header :: header"></header>
+		<!-- //Header -->
+		<!-- Start Search Popup -->
+		<div th:replace="user/fragments/search_popup :: search_popup"></div>
+		<!-- End Search Popup -->
+		<!-- Start Bradcaump area -->
+		<div class="ht__bradcaump__area bg-image--5">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="bradcaump__inner text-center">
+							<h2 class="bradcaump-title">Order details</h2>
+							<nav class="bradcaump-content">
+								<a class="breadcrumb_item" th:href="@{/}">Home</a>
+								<span class="brd-separetor">/</span>
+								<span class="breadcrumb_item active">Order details</span>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Bradcaump area -->
+		<!-- order-details-main-area start -->
+		<div class="wishlist-area section-padding--lg bg__white">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="wishlist-content">
+							<div class="order-details-header">
+								<h3 class="mb-4">Order Details</h3>
+								<p class="mb-4"><strong>Order ID:</strong> <span th:text="${order.id}"></span></p>
+								<p class="mb-4"><strong>Reciever:</strong> <span th:text="${order.reciever}"></span></p>
+								<p class="mb-4"><strong>Address:</strong> <span
+										th:text="${order.shippingAddress}"></span></p>
+								<p class="mb-4"><strong>Order Date:</strong> <span
+										th:text="${#dates.format(order.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></span></p>
+								<p class="mb-4"><strong>Order Amount:</strong> <span
+										th:text="${order.totalPrice}"></span></p>
+								<p class="mb-4"><strong>Order Status:</strong> <span th:text="${order.status}"></span>
+								</p>
+								<p class="mb-4"><strong>Phone number:</strong> <span
+										th:text="${order.phoneNumber}"></span></p>
+								<a th:if="${order.getStatus() == 'PENDING' || order.getStatus() == 'PROCESSING'}"
+									th:href="@{/orders/cancel/__${order.id}__}"
+									class="btn btn-danger cancel-order-btn mb-4">Cancel Order</a>
+								<a th:if="${order.getStatus() == 'DELIVERING'}"
+								   th:href="@{/orders/received/__${order.id}__}"
+								   class="btn btn-success mb-4">Received</a>
+							</div>
+							<div class="order-details-table wnro__table table-responsive">
+								<table class="mt-3">
+									<thead>
+										<tr>
+											<th class="product-name">Product</th>
+											<th class="product-name">Product Name</th>
+											<th class="product-price">Unit Price</th>
+											<th class="product-quantity">Quantity</th>
+											<th class="product-subtotal">Subtotal</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr th:each="item : ${ordersDetails}">
+											<td class="product-thumbnail">
+												<img th:src="@{/cover_images/__${item.getBook().coverImage}__}"
+													alt="Product Image" />
+											</td>
+											<td class="product-name" th:text="${item.getBook().title}"></td>
+											<td class="product-price" th:text="${item.price}"></td>
+											<td class="product-quantity" th:text="${item.quantity}">1</td>
+											<td class="product-subtotal" th:text="${item.price * item.quantity}"></td>
+										</tr>
+									</tbody>
+
+								</table>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- order-details-main-area end -->
+		<!-- Footer Area -->
+		<footer th:replace="user/fragments/footer :: footer"></footer>
+		<!-- //Footer Area -->
+	</div>
+	<!-- //Main wrapper -->
+	<!-- JS Files -->
+	<script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/user/popper.min.js}"></script>
+	<script th:src="@{/js/user/bootstrap.min.js}"></script>
+	<script th:src="@{/js/user/plugins.js}"></script>
+	<script th:src="@{/js/user/active.js}"></script>
+</body>
+
+</html>

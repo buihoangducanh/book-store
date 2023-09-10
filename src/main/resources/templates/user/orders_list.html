@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Orders - Admin</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Favicons -->
+	<link th:href="@{/images/favicon.ico}" rel="shortcut icon">
+	<link th:href="@{/images/icon.png}" rel=" apple-touch-icon" }>
+
+	<!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+	<link th:href="@{/css/user/open_sans.css}" rel="stylesheet">
+	<link th:href="@{/css/user/poppins.css}" rel="stylesheet">
+	<link th:href="@{/css/user/roboto.css}" rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link th:href="@{/css/user/bootstrap.min.css}" rel="stylesheet">
+
+	<!-- Plugins css -->
+	<link th:href="@{/css/user/font-awesome.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/bicon.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/pe-icon-7-stroke.css}" rel="stylesheet">
+	<link th:href="@{/css/user/slick.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/fakeloader.css}" rel="stylesheet">
+	<link th:href="@{/css/user/nivo-slider.css}" rel="stylesheet">
+	<link th:href="@{/css/user/nivo-preview-2.css}" rel="stylesheet">
+	<link th:href="@{/css/user/owl.carousel.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/owl.theme.default.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/material-design-iconic-font.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/animation.css}" rel="stylesheet">
+	<link th:href="@{/css/user/fancybox.css}" rel="stylesheet">
+	<link th:href="@{/css/user/mainmenu.css}" rel="stylesheet">
+	<link th:href="@{/css/user/fotorama.css}" rel="stylesheet">
+	<link th:href="@{/css/user/jquery-ui.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/lightbox.css}" rel="stylesheet">
+	<link th:href="@{/css/user/style.css}" rel="stylesheet">
+
+	<!-- Cusom css -->
+	<link th:href="@{/css/user/custom.css}" rel="stylesheet">
+
+	<!-- Modernizer js -->
+	<script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+	<style>
+		/* Custom CSS for Orders List page */
+		.wishlist-area {
+			padding-top: 100px;
+			padding-bottom: 100px;
+		}
+
+		.wishlist-table {
+			margin-top: 30px;
+		}
+
+		.wishlist-table table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		.wishlist-table th,
+		.wishlist-table td {
+			text-align: left;
+			padding: 15px;
+			border-bottom: 1px solid #f0f0f0;
+		}
+
+		.wishlist-table th {
+			background-color: #f8f8f8;
+			font-weight: 600;
+			font-size: 16px;
+			text-transform: uppercase;
+		}
+
+		.order-details a {
+			color: #007bff;
+			text-decoration: none;
+		}
+
+		.mainmenu__nav .meninmenu li a {
+			color: white;
+		}
+
+		/* Style for order status cells */
+		.order-status {
+			text-align: center;
+			font-weight: bold;
+			text-transform: capitalize;
+		}
+
+		/* Style for the "delevering" status */
+		.order-status.delivering {
+			color: #007bff;
+		}
+
+		/* Style for the "Processing" status */
+		.order-status.processing {
+			color: #ffc107;
+		}
+
+		/* Style for the "Cancelled" status */
+		.order-status.cancelled {
+			color: #dc3545;
+		}
+
+		/* Style for the "Completed" status */
+		.order-status.completed {
+			color: #28a745;
+		}
+	</style>
+
+	<style>
+		.ft__logo a img {
+			max-width: 20%;
+		}
+	</style>
+
+</head>
+
+<body>
+	<!-- Main wrapper -->
+	<div class="wrapper" id="wrapper">
+		<!-- Header -->
+		<header th:replace="user/fragments/header :: header"></header>
+		<!-- //Header -->
+		<!-- Start Search Popup -->
+		<div class="box-search-content search_active block-bg close__top">
+			<form id="search_mini_form" class="minisearch" action="#">
+				<div class="field__search">
+					<input type="text" placeholder="Search entire store here..." />
+					<div class="action">
+						<a href="#"><i class="zmdi zmdi-search"></i></a>
+					</div>
+				</div>
+			</form>
+			<div class="close__wrap">
+				<span>close</span>
+			</div>
+		</div>
+		<!-- End Search Popup -->
+		<!-- Start Bradcaump area -->
+		<div class="ht__bradcaump__area bg-image--5">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="bradcaump__inner text-center">
+							<h2 class="bradcaump-title">Orders list</h2>
+							<nav class="bradcaump-content">
+								<a class="breadcrumb_item" th:href="@{/}">Home</a>
+								<span class="brd-separetor">/</span>
+								<span class="breadcrumb_item active">Orders list</span>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Bradcaump area -->
+		<!-- orders-list-main-area start -->
+		<div class="wishlist-area section-padding--lg bg__white">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-sm-12 col-xs-12">
+						<div class="wishlist-content">
+							<form action="#">
+								<div class="wishlist-table wnro__table table-responsive">
+									<table>
+										<thead>
+											<tr>
+												<th class="order-id">
+													<span class="nobr">Order ID</span>
+												</th>
+												<th class="order-date">
+													<span class="nobr">Order Date</span>
+												</th>
+												<th class="order-amount">
+													<span class="nobr">Order Amount</span>
+												</th>
+												<th class="order-status">
+													<span class="nobr">Order Status</span>
+												</th>
+												<th class="order-details"></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr th:each="order : ${orders}">
+												<td class="order-id" th:text="'#' + ${order.id}"></td>
+												<td class="order-date"
+													th:text="${#dates.format(order.createdAt, 'yyyy-MM-dd HH:mm:ss')}">
+												</td>
+
+												<td class="order-amount"
+													th:text="${#numbers.formatDecimal(__${(order.totalPrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+												></td>
+												<td class="order-status delivering" th:text="${order.status}"></td>
+												<td class="order-details">
+													<a th:href="@{orders/__${order.id}__}">View Details</a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- orders-list-main-area end -->
+		<!-- Footer Area -->
+		<footer th:replace="user/fragments/footer :: footer"></footer>
+		<!-- //Footer Area -->
+	</div>
+	<!-- //Main wrapper -->
+	<!-- JS Files -->
+	<script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/user/popper.min.js}"></script>
+	<script th:src="@{/js/user/bootstrap.min.js}"></script>
+	<script th:src="@{/js/user/plugins.js}"></script>
+	<script th:src="@{/js/user/active.js}"></script>
+</body>
+
+</html>

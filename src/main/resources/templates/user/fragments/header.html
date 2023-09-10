@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Rook Book Store</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Favicons -->
+	<link th:href="@{/images/favicon.ico}" rel="shortcut icon">
+	<link th:href="@{/images/icon.png}" rel=" apple-touch-icon" }>
+
+	<!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+	<link th:href="@{/css/user/open_sans.css}" rel="stylesheet">
+	<link th:href="@{/css/user/poppins.css}" rel="stylesheet">
+	<link th:href="@{/css/user/roboto.css}" rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link th:href="@{/css/user/bootstrap.min.css}" rel="stylesheet">
+
+	<!-- Plugins css -->
+	<link th:href="@{/css/user/font-awesome.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/pe-icon-7-stroke.css}" rel="stylesheet">
+	<link th:href="@{/css/user/slick.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/fakeloader.css}" rel="stylesheet">
+	<link th:href="@{/css/user/nivo-slider.css}" rel="stylesheet">
+	<link th:href="@{/css/user/nivo-preview-2.css}" rel="stylesheet">
+	<link th:href="@{/css/user/owl.carousel.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/owl.theme.default.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/material-design-iconic-font.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/animation.css}" rel="stylesheet">
+	<link th:href="@{/css/user/fancybox.css}" rel="stylesheet">
+	<link th:href="@{/css/user/mainmenu.css}" rel="stylesheet">
+	<link th:href="@{/css/user/fotorama.css}" rel="stylesheet">
+	<link th:href="@{/css/user/jquery-ui.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/lightbox.css}" rel="stylesheet">
+
+	<!-- Cusom css -->
+	<link th:href="@{/css/user/custom.css}" rel="stylesheet">
+
+	<link th:href="@{/css/user/style.css}" rel="stylesheet">
+	<!-- Modernizer js -->
+	<script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+</head>
+
+<body class="sb-nav-fixed">
+	<header id="wn__header" class="header__area header__absolute sticky__header" th:fragment="header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-6 col-sm-6 col-6 col-lg-2">
+					<div class="logo">
+						<a th:href="@{/}">
+							<img th:src="@{/images/logo/Rooks-Logo.png}" class="logo" alt="logo images" />
+						</a>
+					</div>
+				</div>
+				<div class="col-lg-8 d-none d-lg-block">
+					<nav class="mainmenu__nav">
+						<ul class="meninmenu d-flex justify-content-start">
+							<li class="drop with--one--item">
+								<a th:href="@{/}">Home</a>
+							</li>
+							<li class="drop">
+								<a th:href="@{/shop}">Shop</a>
+							</li>
+
+							<li><a th:href="@{/contact}">Contact</a></li>
+						</ul>
+					</nav>
+				</div>
+				<div class="col-md-6 col-sm-6 col-6 col-lg-2">
+					<ul class="header__sidebar__right d-flex justify-content-end align-items-center">
+
+
+						<li class="shopcart">
+							<a th:href="@{/cart}"><span class="product_qun" th:text="${cartItemCount}" id="cart-quantity"></span></a>
+						</li>
+
+						<li class="setting__bar__icon">
+							<a class="setting__active" href="#"></a>
+							<div class="searchbar__content setting__block">
+								<div class="content-inner">
+									<div class="switcher-currency">
+										<strong class="label switcher-label">
+											<span th:if="${currentUser != null}" th:text="${currentUser.fullName}">
+
+											</span>
+											<span th:if="${currentUser == null}" th:text="Account">
+
+											</span>
+										</strong>
+										<div class="switcher-options">
+											<div class="switcher-currency-trigger">
+												<div th:if="${currentUser != null}" class="setting__menu">
+
+													<span th:each="role : ${currentUser.roles}">
+   														 <span th:if="${role.name == 'ROLE_ADMIN'}">
+															 <span><a th:href="@{/admin}" class="font-weight-bold text-primary">ADMIN</a></span>
+														 </span>
+													</span>
+													<span><a th:href="@{/cart/checkout}">Checkout</a></span>
+													<span><a th:href="@{/orders}">Orders</a></span>
+													<span><a th:href="@{/wishlist}">Wishlist</a></span>
+													<span><a th:href="@{/logout}">Log out</a></span>
+												</div>
+
+												<div th:if="${currentUser == null}" class="setting__menu">
+													<span><a th:href="@{/login}">Sign in</a></span>
+													<span><a th:href="@{/register}">Create An Account</a></span>
+												</div>
+
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</header>
+
+
+
+	<!-- JS Files -->
+	<script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/user/popper.min.js}"></script>
+	<script th:src="@{/js/user/bootstrap.min.js}"></script>
+	<script th:src="@{/js/user/plugins.js}"></script>
+	<script th:src="@{/js/user/active.js}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Rook Book Store</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Favicons -->
+	<link th:href="@{/images/favicon.ico}" rel="shortcut icon">
+	<link th:href="@{/images/icon.png}" rel=" apple-touch-icon" }>
+
+	<!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+	<link th:href="@{/css/user/open_sans.css}" rel="stylesheet">
+	<link th:href="@{/css/user/poppins.css}" rel="stylesheet">
+	<link th:href="@{/css/user/roboto.css}" rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link th:href="@{/css/user/bootstrap.min.css}" rel="stylesheet">
+
+	<!-- Plugins css -->
+	<link th:href="@{/css/user/font-awesome.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/bicon.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/pe-icon-7-stroke.css}" rel="stylesheet">
+	<link th:href="@{/css/user/slick.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/fakeloader.css}" rel="stylesheet">
+	<link th:href="@{/css/user/nivo-slider.css}" rel="stylesheet">
+	<link th:href="@{/css/user/nivo-preview-2.css}" rel="stylesheet">
+	<link th:href="@{/css/user/owl.carousel.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/owl.theme.default.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/material-design-iconic-font.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/animation.css}" rel="stylesheet">
+	<link th:href="@{/css/user/fancybox.css}" rel="stylesheet">
+	<link th:href="@{/css/user/mainmenu.css}" rel="stylesheet">
+	<link th:href="@{/css/user/fotorama.css}" rel="stylesheet">
+	<link th:href="@{/css/user/jquery-ui.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/lightbox.css}" rel="stylesheet">
+	<link th:href="@{/css/user/style.css}" rel="stylesheet">
+
+	<!-- Cusom css -->
+	<link th:href="@{/css/user/custom.css}" rel="stylesheet">
+
+	<!-- Modernizer js -->
+	<script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+	<style>
+		.mainmenu__nav .meninmenu li a {
+			color: white;
+		}
+	</style>
+
+	<style>
+		.ft__logo a img {
+			max-width: 20%;
+		}
+	</style>
+
+</head>
+
+<body>
+
+
+	<!-- Main wrapper -->
+	<div class="wrapper" id="wrapper">
+
+		<!-- Header -->
+		<header th:replace="user/fragments/header :: header"></header>
+		<!-- //Header -->
+		<!-- Start Search Popup -->
+		<div class="box-search-content search_active block-bg close__top"
+			th:replace="user/fragments/search_popup :: search_popup">
+		</div>
+		<!-- End Search Popup -->
+		<!-- Start Bradcaump area -->
+		<div class="ht__bradcaump__area bg-image--3">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="bradcaump__inner text-center">
+							<h2 class="bradcaump-title">Shopping Cart</h2>
+							<nav class="bradcaump-content">
+								<a class="breadcrumb_item" th:href="@{/}">Home</a>
+								<span class="brd-separetor">/</span>
+								<span class="breadcrumb_item active">Shopping Cart</span>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>>
+		<!-- End Bradcaump area -->
+		<!-- cart-main-area start -->
+		<div class="cart-main-area section-padding--lg bg--white">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-12 col-sm-12 ol-lg-12">
+
+						<div class="table-content wnro__table table-responsive">
+							<table>
+								<thead>
+									<tr class="title-top">
+										<th class="product-thumbnail">Image</th>
+										<th class="product-name">Product</th>
+										<th class="product-price">Price</th>
+										<th class="product-quantity">Quantity</th>
+										<th class="product-subtotal">Total</th>
+										<th class="product-remove">Remove</th>
+									</tr>
+								</thead>
+								<tbody>
+
+									<tr th:each="cartItem : ${cart.cartItems}">
+										<td class="product-thumbnail">
+											<a th:href="@{/shop/product/__${cartItem.bookId}__}">
+												<img th:src="@{/cover_images/__${cartItem.coverImage}__}"
+													alt="product img" />
+											</a>
+										</td>
+										<td class="product-name">
+											<a th:href="@{/shop/product/__${cartItem.bookId}__}"
+												th:text="${cartItem.title}"></a>
+										</td>
+										<td class="product-price">
+											<span class="amount"
+												  th:text="${#numbers.formatDecimal(__${cartItem.price}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></span>
+										</td>
+										<td class="product-quantity">
+											<input th:min="1" type="number" th:value="${cartItem.quantity}"
+												th:attr="onchange='updateCartItemQuantity(' + ${cartItem.bookId} + ', ' + this.value + ')'" />
+										</td>
+
+										<td class="product-subtotal"
+
+											th:text="${#numbers.formatDecimal(__${cartItem.price * cartItem.quantity}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+											>
+										</td>
+										<td class="product-remove"><a
+												th:href="@{/cart/remove-cart-item/__${cartItem.bookId}__}">X</a></td>
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+
+						<div class="cartbox__btn">
+							<ul
+								class="cart__btn__list d-flex flex-wrap flex-md-nowrap flex-lg-nowrap justify-content-between">
+								<li><a th:href="@{/cart/checkout}">Check Out</a></li>
+
+								<li>
+									<div class="cart__total__amount"
+										style="display: flex; gap: 50px; background-color: black">
+										<span>Total</span>
+										<span
+												th:text="${#numbers.formatDecimal(__${totalCart}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+												></span>
+									</div>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- cart-main-area end -->
+		<!-- Footer Area -->
+		<footer th:replace="user/fragments/footer :: footer"></footer>
+		<!-- //Footer Area -->
+
+		<script>
+			function updateCartItemQuantity(productId, newQuantity) {
+				console.log(newQuantity)
+				$.ajax({
+					type: "POST",
+					url: "/cart/update-cart-item",
+					data: {
+						productId: productId,
+						quantity: newQuantity
+					},
+					success: function (response) {
+						location.reload();
+					}
+				});
+			}
+		</script>
+
+	</div>
+	<!-- //Main wrapper -->
+	<!-- JS Files -->
+	<script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/user/popper.min.js}"></script>
+	<script th:src="@{/js/user/bootstrap.min.js}"></script>
+	<script th:src="@{/js/user/plugins.js}"></script>
+	<script th:src="@{/js/user/active.js}"></script>
+
+</body>
+
+</html>

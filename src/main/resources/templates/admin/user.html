@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Static Navigation - SB Admin</title>
+	<link th:href="@{/css/admin/styles.css}" rel="stylesheet" />
+	<script th:src="@{/js/admin/fontawesome-all.js}" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<div th:replace="admin/fragments/header :: header_nav"></div>
+	<div id="layoutSidenav">
+		<div th:replace="admin/fragments/side_navbar :: side_navbar"></div>
+		<!-- Copy den day-->
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid px-4">
+
+					<!-- Chỗ cần thay đổi -->
+					<div class="container mt-5">
+						<h1>Danh Sách Người Dùng</h1>
+						<table class="table mt-5 table-striped table-hover table-bordered">
+							<thead>
+								<tr>
+									<th>ID</th>
+									<th>Tên người dùng</th>
+									<th>Họ và tên</th>
+									<th>Số điện thoại</th>
+									<th>Địa chỉ</th>
+									<th></th>
+								</tr>
+							</thead>
+							<tbody id="userlist">
+
+								<tr th:each="user : ${users}">
+									<td th:text="${user.id}"></td>
+									<td th:text="${user.email}"></td>
+									<td th:text="${user.fullName}"></td>
+									<td th:text="${user.phoneNumber}"></td>
+									<td th:text="${user.address}"></td>
+									<td>
+										<span th:each="role : ${user.getRoles()}">
+											<a href="#" type="button" class="btn btn-primary btn-sm" th:if="${role.name == 'ROLE_ADMIN'}" th:text="ADMIN"></a>
+											<a href="#" type="button" class="btn btn-primary btn-sm" th:if="${role.name == 'ROLE_USER'}" th:text="user"></a>
+										</span>
+
+										<span th:each="role : ${user.getRoles()}">
+											<button th:unless="${role.name == 'ROLE_ADMIN'}" href="#" class="btn btn-danger btn-sm"
+											   data-toggle="modal" th:onclick="'deleteUser('+ ${user.id} +')'">Xóa</button>
+										</span>
+
+									</td>
+								</tr>
+
+
+							</tbody>
+						</table>
+
+
+						<script>
+							function deleteUser(userId) {
+								if (confirm('Bạn có chắc chắn muốn xóa người dùng này không?')) {
+									window.location.href = '/admin/users_management/delete_user/' + userId;
+								}
+							}
+						</script>
+
+						<div th:if="${users.totalPages > 1}" class="d-flex justify-content-center">
+							<ul class="pagination">
+								<li th:each="pageNumber : ${#numbers.sequence(1, users.totalPages)}" th:class="${pageNumber == users.getNumber() +1 ? 'page-item active' : 'page-item'}">
+									<a th:href="@{/admin/users_management(page=${pageNumber})}" class="page-link" th:text="${pageNumber}"></a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</main>
+			<div th:replace="/admin/fragments/footer :: footer"></div>
+		</div>
+	</div>
+	<script th:src="@{/js/admin/bootstrap.bundle.min.js}" crossorigin="anonymous"></script>
+	<script src="@{/js/admin/scripts.js}"></script>
+	<script src="@{/js/admin/contacts.js}"></script>
+</body>
+
+</html>

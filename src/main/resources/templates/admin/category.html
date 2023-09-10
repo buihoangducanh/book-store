@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Admin - Danh mục</title>
+	<link th:href="@{/css/admin/styles.css}" rel="stylesheet" />
+	<script th:src="@{/js/admin/fontawesome-all.js}" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div th:replace="admin/fragments/header :: header_nav"></div>
+<div id="layoutSidenav">
+	<div th:replace="admin/fragments/side_navbar :: side_navbar"></div>
+	<div id="layoutSidenav_content">
+		<main>
+			<div class="container-fluid px-4">
+
+				<!-- ... -->
+				<div class="container mt-5">
+
+					<div th:if="${message}" class="alert alert-primary" role="alert">
+						<p th:text="${message}"></p>
+					</div>
+
+					<h1>Danh Sách Danh Mục</h1>
+					<a th:href="@{/admin/categories_management/add}" class="btn btn-primary mb-3 mt-3 mb-4">Thêm danh
+						mục</a>
+					<table class="table table-striped table-hover table-bordered">
+						<thead>
+						<tr>
+							<th>ID</th>
+							<th>Tên danh mục</th>
+							<th>Mô tả</th>
+							<th></th>
+						</tr>
+						</thead>
+						<tbody>
+						<tr th:each="category : ${categories}">
+							<td th:text="${category.id}">1</td>
+							<td th:text="${category.name}">Sách thể thao</td>
+							<td th:text="${category.description}"></td>
+							<td style="width: 12rem;">
+								<a th:href="@{'/admin/categories_management/edit/' + ${category.id}}"
+								   class="btn btn-primary btn-sm">Cập nhật</a>
+								<a class="btn btn-danger btn-sm btn-delete" th:data-category-id="${category.id}">Xóa</a>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+					<nav aria-label="Page navigation">
+						<ul class="pagination justify-content-center">
+							<li th:classappend="${currentPage == 0} ? disabled : ''" class="page-item">
+								<a th:href="@{/admin/categories_management?page=1}" class="page-link">Trang đầu</a>
+							</li>
+							<li th:each="pageNumber : ${#numbers.sequence(1, totalPages)}" th:classappend="${1+currentPage == pageNumber} ? active : ''" class="page-item">
+								<a th:href="@{/admin/categories_management(page=${pageNumber})}" class="page-link" th:text="${pageNumber}"></a>
+
+							</li>
+							<li th:classappend="${1 + currentPage == totalPages} ? disabled : ''" class="page-item">
+								<a th:href="@{/admin/categories_management(page=${totalPages})}" class="page-link">Trang cuối</a>
+
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</main>
+		<div th:replace="/admin/fragments/footer :: footer"></div>
+	</div>
+</div>
+<!-- Modal for Delete Confirmation -->
+<div class="modal fade" id="deleteConfirmationModal" tabindex="-1" aria-labelledby="deleteConfirmationModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="deleteConfirmationModalLabel">Xác nhận xoá danh mục</h5>
+				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="modal-body">
+				Bạn có chắc chắn muốn xoá danh mục này không?
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+				<a id="deleteButton" class="btn btn-danger">Xoá</a>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script th:src="@{/js/admin/bootstrap.bundle.min.js}" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+<script th:src="@{/js/admin/scripts.js}"></script>
+<script th:src="@{/js/admin/contacts.js}"></script>
+
+<!-- JavaScript for Delete Confirmation -->
+<script>
+	$(document).ready(function () {
+		$(".btn-delete").on("click", function () {
+			var categoryId = $(this).attr("data-category-id");
+			var deleteUrl = "/admin/categories_management/delete/" + categoryId;
+
+			$("#deleteButton").attr("href", deleteUrl);
+			$("#deleteConfirmationModal").modal("show");
+		});
+	});
+</script>
+</body>
+</html>

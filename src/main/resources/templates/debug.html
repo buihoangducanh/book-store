@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Current User Information</title>
+</head>
+<body>
+<h1>Current User Information</h1>
+<div th:if="${currentUser != null}">
+  <p>Welcome, <span th:text="${currentUser.fullName}"></span>!</p>
+  <p>Email: <span th:text="${currentUser.email}"></span></p>
+  <p>Roles:
+    <span th:each="role : ${currentUser.roles}" th:text="${role.name} + ' '"></span>
+  </p>
+</div>
+<div th:unless="${currentUser != null}">
+  <p>No user is currently logged in.</p>
+</div>
+</body>
+</html>

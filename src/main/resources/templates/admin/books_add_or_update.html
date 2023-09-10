@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Admin - Thêm/cập nhật sách</title>
+	<link th:href="@{/css/admin/styles.css}" rel="stylesheet" />
+	<script th:src="@{/js/admin/fontawesome-all.js}" crossorigin="anonymous"></script>
+	<style>
+		.scroll-to-top {
+			display: none;
+			position: fixed;
+			bottom: 20px;
+			right: 20px;
+			width: 40px;
+			height: 40px;
+			background-color: #007bff;
+			color: #ffffff;
+			border-radius: 50%;
+			text-align: center;
+			line-height: 40px;
+			font-size: 20px;
+			cursor: pointer;
+			box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+			transition: opacity 0.3s ease;
+		}
+
+		.scroll-to-top:hover {
+			opacity: 0.8;
+		}
+	</style>
+</head>
+
+<body>
+<div th:replace="admin/fragments/header :: header_nav"></div>
+<div id="layoutSidenav">
+	<div th:replace="admin/fragments/side_navbar :: side_navbar"></div>
+	<div id="layoutSidenav_content">
+		<main>
+			<div class="container-fluid px-4">
+
+				<div class="container mt-5">
+					<div th:if="${message}" class="alert alert-success" role="alert">
+						<p th:text="${message}"></p>
+					</div>
+					<h2>Thêm/Cập nhật Sản phẩm</h2>
+					<div th:if="${error}" class="alert alert-danger" role="alert">
+						${error}
+					</div>
+
+					<form th:action="@{/admin/books_management/add}" th:object="${book}" method="post" enctype="multipart/form-data">
+						<input type="hidden" th:field="*{id}" />
+
+						<div class="form-group">
+							<label for="bookTitle">Tiêu đề</label>
+							<input id="bookTitle" required type="text" class="form-control" th:field="*{title}" placeholder="Nhập tiêu đề sách" />
+						</div>
+						<br />
+
+						<div class="form-group">
+							<label for="bookAuthor">Tác giả:</label>
+							<input id="bookAuthor" required type="text" class="form-control" th:field="*{author}" placeholder="Nhập tên tác giả" />
+						</div>
+						<br />
+
+						<div class="form-group">
+							<label for="bookPublisher">Nhà xuất bản:</label>
+							<input id="bookPublisher" required type="text" class="form-control" th:field="*{publisher}" placeholder="Nhập tên nhà xuất bản sách" />
+						</div>
+						<br />
+
+						<div class="form-group">
+							<label for="publishedDate">Ngày xuất bản:</label>
+							<input id="publishedDate" type="date" class="form-control" th:field="*{publishedDate}" />
+
+						</div>
+						<br />
+
+						<div class="form-group">
+							<label for="categoryId">Danh mục:</label>
+							<select id="categoryId" required class="form-select" th:field="*{category.id}" aria-label="Default select example">
+								<option value="-1" selected>Chọn 1 trong các danh mục sau</option>
+								<option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+							</select>
+						</div>
+						<br />
+
+						<div class="form-group">
+							<label for="originalPrice">Giá gốc: </label>
+							<input id="originalPrice" required type="number" step="0.01" class="form-control" th:field="*{originalPrice}" placeholder="Nhập giá gốc" />
+						</div>
+						<br />
+
+						<div class="form-group">
+							<label for="salePrice">Giá sale:</label>
+							<input id="salePrice" required type="number" step="0.01" class="form-control" th:field="*{salePrice}" placeholder="Nhập giá sale" />
+						</div>
+						<br />
+
+						<div class="form-group">
+							<label for="quantity">Số lượng:</label>
+							<input id="quantity" required type="number" class="form-control" th:field="*{qty}" placeholder="Nhập số lượng" />
+						</div>
+						<br />
+
+						<div class="form-group">
+							<label for="numberOfPages">Số trang:</label>
+							<input id="numberOfPages" required type="number" class="form-control" th:field="*{numberOfPages}" placeholder="Nhập số trang" />
+						</div>
+						<br />
+
+						<div class="form-group">
+							<label for="description">Mô tả:</label>
+							<textarea id="description" rows="6" class="form-control" th:field="*{description}" placeholder="Nhập mô tả sách"></textarea>
+						</div>
+						<br />
+
+						<div class="form-group">
+							<label>Ảnh bìa (nếu không chọn ảnh mới thì sẽ dùng ảnh cũ):</label>
+							<div class="input-group mb-3">
+								<input type="file" class="form-control" id="inputGroupFile02" name="cover_image" onchange="previewImage(this)" />
+
+								<label class="input-group-text" for="inputGroupFile02">Upload</label>
+							</div>
+							<div id="imagePreview" style="max-width: 300px;">
+								<!-- Hiển thị ảnh cũ nếu có -->
+								<img th:if="${book.coverImage}" th:src="@{/cover_images/__${book.coverImage}__}" style="max-width: 100%;"  alt="cover image"/>
+							</div>
+						</div>
+						<br />
+
+						<button type="submit" class="btn btn-primary">Xác nhận</button>
+					</form>
+				</div>
+				<br />
+			</div>
+		</main>
+		<div th:replace="admin/fragments/footer :: footer"></div>
+		<div id="scrollButton" class="scroll-to-top" onclick="scrollToTop()">
+			<i class="fas fa-arrow-up"></i>
+		</div>
+	</div>
+</div>
+<script>
+	function previewImage(input) {
+		const preview = document.getElementById("imagePreview");
+
+		if (input.files && input.files[0]) {
+			const reader = new FileReader();
+
+			reader.onload = function (e) {
+				const img = document.createElement("img");
+				img.src = e.target.result;
+				img.style.maxWidth = "100%";
+				preview.innerHTML = "";
+				preview.appendChild(img);
+			};
+
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
+</script>
+<script>
+	// Function to show/hide the scroll-to-top button
+	function toggleScrollButton() {
+		const scrollButton = document.getElementById("scrollButton");
+		if (window.scrollY >= 200) {
+			scrollButton.style.display = "block";
+		} else {
+			scrollButton.style.display = "none";
+		}
+	}
+
+	// Function to scroll to the top of the page
+	function scrollToTop() {
+		window.scrollTo({
+			top: 0,
+			behavior: "smooth",
+		});
+	}
+
+	// Add event listener to show/hide the scroll-to-top button
+	window.addEventListener("scroll", toggleScrollButton);
+</script>
+<script th:src="@{/js/admin/bootstrap.bundle.min.js}" crossorigin="anonymous"></script>
+<script th:src="@{/js/admin/scripts.js}"></script>
+</body>
+
+</html>

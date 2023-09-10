@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Static Navigation - SB Admin</title>
+	<link th:href="@{/css/admin/styles.css}" rel="stylesheet" />
+	<script th:src="@{/js/admin/fontawesome-all.js}" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<!-- Copy tu day-->
+	<div th:replace="admin/fragments/header :: header_nav"></div>
+	<div id="layoutSidenav">
+		<div th:replace="admin/fragments/side_navbar :: side_navbar"></div>
+		<!-- Copy den day-->
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid px-4">
+
+					<!-- Chỗ cần thay đổi -->
+					<div class="container mt-5">
+						<div class="card mb-4">
+							<h5 class="card-header">Thông tin chi tiết đơn hàng</h5>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-md-6">
+										<p class="mb-1"><strong>ID:</strong> <span th:text="${order.id}"></span></p>
+										<p class="mb-1"><strong>Người nhận:</strong> <span th:text="${order.reciever}"></span></p>
+										<p class="mb-1"><strong>Số điện thoại:</strong> <span th:text="${order.phoneNumber}"></span></p>
+										<p class="mb-1"><strong>Email:</strong> <span th:text="${order.emailAddress}"></span></p>
+										<p class="mb-1"><strong>Ngày tạo:</strong> <span th:text="${#dates.format(order.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></span></p>
+									</div>
+									<div class="col-md-6">
+										<p class="mb-1"><strong>Tổng giá:</strong> <span
+												th:text="${#numbers.formatDecimal(__${(order.totalPrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+										></span></p>
+										<p class="mb-1"><strong>Trạng thái:</strong> <span th:text="${order.status}"></span></p>
+										<p class="mb-1"><strong>Phương thức thanh toán:</strong> <span th:text="${order.paymentMethod}"></span></p>
+										<p class="mb-1"><strong>Địa chỉ giao hàng:</strong> <span th:text="${order.shippingAddress}"></span></p>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<h5>Danh sách sản phẩm trong đơn hàng</h5>
+						<table class="table table-striped table-bordered table-hover">
+							<thead>
+								<tr >
+									<th>ID</th>
+									<th>Tên sách</th>
+									<th>Tác giả</th>
+									<th>Nhà xuất bản</th>
+									<th>Ngày xuất bản</th>
+									<th>Danh mục</th>
+									<th>Giá gốc</th>
+									<th>Giá giảm</th>
+									<th>Số lượng</th>
+									<th>Thành tiền</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- Dữ liệu sản phẩm sẽ được hiển thị ở đây -->
+								<!-- Ví dụ: -->
+								<tr th:each="item : ${ordersDetails}">
+									<td th:text="${item.getBook().id}"></td>
+									<td th:text="${item.getBook().title}"></td>
+									<td th:text="${item.getBook().author}"></td>
+									<td th:text="${item.getBook().publisher}"></td>
+									<td th:text="${#dates.format(order.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
+									<td  th:text="${item.getBook().getCategory().name}"></td>
+									<td
+											th:text="${#numbers.formatDecimal(__${(item.getBook().originalPrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+									></td>
+									<td
+											th:text="${#numbers.formatDecimal(__${(item.getBook().salePrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+											></td>
+									<td th:text="${item.quantity}">2</td>
+									<td
+											th:text="${#numbers.formatDecimal(__${item.quantity * item.price}__, 0, 'POINT', 0, 'POINT')} + ' VND'"
+											></td>
+
+								</tr>
+
+
+							</tbody>
+						</table>
+						<div class="mt-3 mb-3">
+							<a th:href="@{/admin/orders_management}" class="btn btn-secondary">Quay lại danh sách đơn hàng</a>
+							<a th:if="${order.status == 'PENDING'}" th:href="@{/admin/orders_management/details/process/__${order.id}__}" class="btn btn-secondary">Xử lý</a>
+							<a th:if="${order.status == 'PENDING'}" th:href="@{/admin/orders_management/details/cancel/__${order.id}__}" class="btn btn-secondary">Huỷ đơn hàng</a>
+							<a th:if="${order.status == 'PROCESSING'}" th:href="@{/admin/orders_management/details/cancel/__${order.id}__}" class="btn btn-secondary">Huỷ đơn hàng</a>
+							<a th:if="${order.status == 'PROCESSING'}" th:href="@{/admin/orders_management/details/deliver/__${order.id}__}" class="btn btn-secondary">Giao hàng</a>
+
+						</div>
+					</div>
+				</div>
+			</main>
+			<div th:replace="admin/fragments/footer :: footer"></div>
+		</div>
+	</div>
+	<script th:src="@{/js/admin/bootstrap.bundle.min.js}" crossorigin="anonymous">
+	</script>
+	<script th:src="@{/js/admin/scripts.js}"></script>
+	<script th:src="@{/js/Order_detail.js}"></script>
+
+</body>
+
+</html>

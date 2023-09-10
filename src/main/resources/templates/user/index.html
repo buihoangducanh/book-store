@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Rook Book Store</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Favicons -->
+	<link th:href="@{/images/favicon.ico}" rel="shortcut icon">
+	<link th:href="@{/images/icon.png}" rel=" apple-touch-icon" }>
+
+	<!-- Google font (font-family: 'Roboto', sans-serif; Poppins ; Satisfy) -->
+	<link th:href="@{/css/user/open_sans.css}" rel="stylesheet">
+	<link th:href="@{/css/user/poppins.css}" rel="stylesheet">
+	<link th:href="@{/css/user/roboto.css}" rel="stylesheet">
+
+	<!-- Stylesheets -->
+	<link th:href="@{/css/user/bootstrap.min.css}" rel="stylesheet">
+
+	<!-- Plugins css -->
+	<link th:href="@{/css/user/font-awesome.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/bicon.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/pe-icon-7-stroke.css}" rel="stylesheet">
+	<link th:href="@{/css/user/slick.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/fakeloader.css}" rel="stylesheet">
+	<link th:href="@{/css/user/nivo-slider.css}" rel="stylesheet">
+	<link th:href="@{/css/user/nivo-preview-2.css}" rel="stylesheet">
+	<link th:href="@{/css/user/owl.carousel.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/owl.theme.default.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/material-design-iconic-font.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/animation.css}" rel="stylesheet">
+	<link th:href="@{/css/user/fancybox.css}" rel="stylesheet">
+	<link th:href="@{/css/user/mainmenu.css}" rel="stylesheet">
+	<link th:href="@{/css/user/fotorama.css}" rel="stylesheet">
+	<link th:href="@{/css/user/jquery-ui.min.css}" rel="stylesheet">
+	<link th:href="@{/css/user/lightbox.css}" rel="stylesheet">
+	<link th:href="@{/css/user/style.css}" rel="stylesheet">
+	<!-- Cusom css -->
+	<link th:href="@{/css/user/custom.css}" rel="stylesheet">
+
+	<!-- Modernizer js -->
+	<script th:src="@{/js/user/vendor/modernizr-3.5.0.min.js}"></script>
+
+	<style>
+		.ft__logo a img {
+			max-width: 20%;
+		}
+	</style>
+	<style>
+
+		.prod{
+			display: flex;
+			flex-direction: column;
+			gap: 10px;
+		}
+		.product_img{
+			height: 300px;
+			overflow: hidden;
+			display: block;
+		}
+		.product_img img{
+			height: 100%;
+			width: auto !important;
+		}
+		.title-container{
+			height: 60px;
+		}
+
+	</style>
+</head>
+
+<body>
+	<!-- Main wrapper -->
+	<div class="wrapper" id="wrapper">
+		<!-- Header -->
+		<header th:replace="user/fragments/header :: header"></header>
+		<!-- //Header -->
+		<!-- Start Search Popup -->
+		<div th:replace="user/fragments/search_popup :: search_popup"></div>
+		<!-- End Search Popup -->
+		<!-- Start Slider area -->
+		<div class="slider-area brown__nav slider--15 slide__activation slide__arrow01 owl-carousel owl-theme">
+			<!-- Start Single Slide -->
+			<div class="slide animation__style10 bg-image--1 fullscreen align__center--left">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="slider__content">
+								<div class="contentbox">
+									<h2>Buy <span>your </span></h2>
+									<h2>favourite <span>Book </span></h2>
+									<h2>from <span>Here </span></h2>
+									<a class="shopbtn" href="shop.html">shop now</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Single Slide -->
+			<!-- Start Single Slide -->
+			<div class="slide animation__style10 bg-image--2 fullscreen align__center--left">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="slider__content">
+								<div class="contentbox">
+									<h2>Buy <span>your </span></h2>
+									<h2>favourite <span>Book </span></h2>
+									<h2>from <span>Here </span></h2>
+									<a class="shopbtn" th:href="@{/shop}">shop now</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- End Single Slide -->
+		</div>
+		<!-- End Slider area -->
+		<!-- Start BEst Seller Area -->
+		<section class="wn__product__area brown--color pt--80 pb--30">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="section__title text-center">
+							<h2 class="title__be--2">
+								Best <span class="color--theme">Seller</span>
+							</h2>
+							<p>
+								There are many variations of passages of Lorem Ipsum
+								available, but the majority have suffered lebmid alteration in
+								some ledmid form
+							</p>
+						</div>
+					</div>
+				</div>
+				<!-- Start Single Tab Content -->
+
+				<div class="row">
+					<div th:each="book : ${top4BestSeller}" class="mt--50 prod product__style--3 col-lg-3 col-md-3 col-sm-6 col-12">
+
+						<a class="product_img" th:href="@{/shop/product/__${book.id}__}">
+
+							<img class="aspect-ratio-box__img img-fluid" th:src="@{/cover_images/__${book.coverImage}__}" alt="product image" />
+
+						</a>
+
+						<p class="title-container">
+							<a th:href="@{/shop/product/__${book.id}__}" th:text="${book.title}"></a>
+						</p>
+
+
+						<h4 th:text="${#numbers.formatDecimal(__${(book.salePrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></h4>
+						<!-- Add to cart button -->
+						<div class="product__hover__info">
+
+							<button href="cart.html" class="btn btn-dark block"  th:onclick="'addToCart(' + ${book.id} + ')'" th:text="'Add to Cart'"></button>
+
+						</div>
+
+					</div>
+					<!-- End Single Product -->
+				</div>
+
+				<!-- End Single Tab Content -->
+			</div>
+		</section>
+
+		<!-- Start Best Seller Area -->
+		<section class="wn__bestseller__area bg--white pt--80 pb--30">
+			<div class="container">
+				<div class="row">
+					<div class="col-lg-12">
+						<div class="section__title text-center">
+							<h2 class="title__be--2">
+								New <span class="color--theme">Products</span>
+							</h2>
+							<p>
+								There are many variations of passages of Lorem Ipsum
+								available, but the majority have suffered lebmid alteration in
+								some ledmid form
+							</p>
+						</div>
+					</div>
+				</div>
+
+				<div class="tab__container mt--60">
+					<!-- Start Single Tab Content -->
+					<div class="row single__tab tab-pane fade show active" id="nav-all" role="tabpanel">
+						<div class="product__indicator--4 arrows_style owl-carousel owl-theme">
+							<!-- Start Single Product -->
+							<div th:each="book : ${newProducts}" class="mt--50 prod product__style--3 col-lg-3 col-md-3 col-sm-6 col-12">
+								<div class="single__product">
+									<a class="product_img" th:href="@{/shop/product/__${book.id}__}">
+										<img  class="aspect-ratio-box__img img-fluid" th:src="@{/cover_images/__${book.coverImage}__}" alt="product image" />
+									</a>
+									<p class="title-container">
+										<a th:href="@{/shop/product/__${book.id}__}" th:text="${book.title}"></a>
+									</p>
+									<h4 th:text="${#numbers.formatDecimal(__${(book.salePrice)}__, 0, 'POINT', 0, 'POINT')} + ' VND'"></h4>
+									<!-- Add to cart button -->
+									<div class="product__hover__info">
+										<button href="cart.html" class="btn btn-dark block" th:onclick="'addToCart(' + ${book.id} + ')'" th:text="'Add to Cart'"></button>
+									</div>
+								</div>
+							</div>
+							<!-- End Single Product -->
+						</div>
+					</div>
+					<!-- End Single Tab Content -->
+				</div>
+
+			</div>
+		</section>
+		<script>
+			function addToCart(productId) {
+				var data = JSON.stringify({ "productId": productId, "quantity": 1 });
+
+				$.ajax({
+					type: "POST",
+					url: "/cart/add-to-cart",
+					contentType: "application/json",
+					data: data,
+					success: function (data) {
+						if (data === "ok") {
+							alert("Thêm sản phẩm vào giỏ thành công!");
+
+							updateCartQuantity();
+						} else {
+							alert("Bạn cần đăng nhập trước");
+							window.location.href = "/login";
+						}
+					},
+					error: function () {
+						alert("Error adding item to cart.");
+					}
+				});
+			}
+
+			function updateCartQuantity() {
+				$.ajax({
+					type: "GET",
+					url: "/cart/cart-item-count",  // Replace with the actual endpoint to get cart item count
+					success: function (data) {
+						$("#cart-quantity").text(data); // Update the cart quantity in the header
+					},
+					error: function () {
+						console.log("Error updating cart quantity.");
+					}
+				});
+			}
+
+
+
+
+		</script>
+		<!-- Footer Area -->
+		<footer th:replace="user/fragments/footer :: footer"></footer>
+		<!-- //Footer Area -->
+	</div>
+	<!-- //Main wrapper -->
+	<!-- JS Files -->
+	<script th:src="@{/js/user/vendor/jquery-3.2.1.min.js}"></script>
+	<script th:src="@{/js/user/popper.min.js}"></script>
+	<script th:src="@{/js/user/bootstrap.min.js}"></script>
+	<script th:src="@{/js/user/plugins.js}"></script>
+	<script th:src="@{/js/user/active.js}"></script>
+
+</body>
+
+</html>

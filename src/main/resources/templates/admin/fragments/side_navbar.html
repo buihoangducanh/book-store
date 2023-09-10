@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Dashboard - SB Admin</title>
+	<link th:href="@{/css/admin.bootstrap.min.css}" rel="stylesheet" />
+	<link th:href="@{/css/admin/styles.css}" rel="stylesheet" />
+	<script th:src="@{/js/admin/fontawesome-all.js}" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<!-- Side Navbar -->
+	<div id="layoutSidenav_nav" th:fragment="side_navbar">
+		<nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+			<div class="sb-sidenav-menu">
+				<div class="nav">
+					<div class="sb-sidenav-menu-heading">Admin</div>
+					<a class="nav-link" th:href="@{/admin}">
+						<div class="sb-nav-link-icon">
+							<i class="fas fa-tachometer-alt"></i>
+						</div>
+						Dashboard
+					</a>
+					<div class="sb-sidenav-menu-heading">Hệ thống quản trị</div>
+					<a class="nav-link collapsed" th:href="@{/admin}" href="#" data-bs-toggle="collapse"
+						data-bs-target="#collapseOrder_1" aria-expanded="false" aria-controls="collapseOrder">
+						<div class="sb-nav-link-icon">
+							<i class="fas fa-columns"></i>
+						</div>
+						Người Dùng
+						<div class="sb-sidenav-collapse-arrow">
+							<i class="fas fa-angle-down"></i>
+						</div>
+					</a>
+					<div class="collapse" id="collapseOrder_1" aria-labelledby="headingOne"
+						data-bs-parent="#sidenavAccordion">
+						<nav class="sb-sidenav-menu-nested nav">
+							<a class="nav-link" th:href="@{/admin/users_management}">Danh Sách Người Dùng</a>
+						</nav>
+					</div>
+					<!-- Danh mục -->
+					<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseOrder_2"
+						aria-expanded="false" aria-controls="collapseOrder">
+						<div class="sb-nav-link-icon">
+							<i class="fas fa-columns"></i>
+						</div>
+						Danh Mục
+						<div class="sb-sidenav-collapse-arrow">
+							<i class="fas fa-angle-down"></i>
+						</div>
+					</a>
+					<div class="collapse" id="collapseOrder_2" aria-labelledby="headingOne"
+						data-bs-parent="#sidenavAccordion">
+						<nav class="sb-sidenav-menu-nested nav">
+							<a class="nav-link" th:href="@{/admin/categories_management}">Danh Sách Danh Mục</a>
+							<a class="nav-link" th:href="@{/admin/categories_management/add}">Thêm Danh Mục</a>
+						</nav>
+					</div>
+					<!-- Sản Phẩm -->
+					<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseOrder_3"
+						aria-expanded="false" aria-controls="collapseOrder">
+						<div class="sb-nav-link-icon">
+							<i class="fas fa-columns"></i>
+						</div>
+						Sản Phẩm
+						<div class="sb-sidenav-collapse-arrow">
+							<i class="fas fa-angle-down"></i>
+						</div>
+					</a>
+					<div class="collapse" id="collapseOrder_3" aria-labelledby="headingOne"
+						data-bs-parent="#sidenavAccordion">
+						<nav class="sb-sidenav-menu-nested nav">
+							<a class="nav-link" th:href="@{/admin/books_management}">Danh Sách Sản Phẩm</a>
+							<a class="nav-link" th:href="@{/admin/books_management/add}">Thêm Sản Phẩm</a>
+						</nav>
+					</div>
+					<!-- Đơn hàng -->
+					<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseOrder_4"
+						aria-expanded="false" aria-controls="collapseOrder">
+						<div class="sb-nav-link-icon">
+							<i class="fas fa-columns"></i>
+						</div>
+						Đơn hàng
+						<div class="sb-sidenav-collapse-arrow">
+							<i class="fas fa-angle-down"></i>
+						</div>
+					</a>
+					<div class="collapse" id="collapseOrder_4" aria-labelledby="headingOne"
+						data-bs-parent="#sidenavAccordion">
+						<nav class="sb-sidenav-menu-nested nav">
+							<a class="nav-link" th:href="@{/admin/orders_management}">Danh Sách Đơn Hàng</a>
+						</nav>
+					</div>
+					<!-- contact -->
+					<a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseContact"
+						aria-expanded="false" aria-controls="collapseContact">
+						<div class="sb-nav-link-icon">
+							<i class="fas fa-columns"></i>
+						</div>
+						Liên Hệ
+						<div class="sb-sidenav-collapse-arrow">
+							<i class="fas fa-angle-down"></i>
+						</div>
+					</a>
+					<div class="collapse" id="collapseContact" aria-labelledby="headingOne"
+						data-bs-parent="#sidenavAccordion">
+						<nav class="sb-sidenav-menu-nested nav">
+							<a class="nav-link" th:href="@{/admin/contacts}">Danh Sách Liên Hệ</a>
+						</nav>
+					</div>
+
+					<!-- Statistics -->
+					<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+						data-bs-target="#collapseStatistics" aria-expanded="false" aria-controls="collapseStatistics">
+						<div class="sb-nav-link-icon">
+							<i class="fas fa-columns"></i>
+						</div>
+						Thống kê
+						<div class="sb-sidenav-collapse-arrow">
+							<i class="fas fa-angle-down"></i>
+						</div>
+					</a>
+					<div class="collapse" id="collapseStatistics" aria-labelledby="headingOne"
+						data-bs-parent="#sidenavAccordion">
+						<nav class="sb-sidenav-menu-nested nav">
+							<a class="nav-link" th:href="@{/admin/statistics}">Thống kê doanh thu</a>
+						</nav>
+					</div>
+				</div>
+			</div>
+			<div class="sb-sidenav-footer">
+				<div class="small">Logged in as:</div>
+				<div class="text-danger block" th:text="${currentUser.email}"></div>
+			</div>
+		</nav>
+		<!-- End of nav bar-->
+	</div>
+</body>

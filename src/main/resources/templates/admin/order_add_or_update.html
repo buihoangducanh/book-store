@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+	<title>Static Navigation - SB Admin</title>
+	<link th:href="@{css/admin/styles.css}" rel="stylesheet" />
+	<script th:src="@{js/admin/fontawesome-all.js}" crossorigin="anonymous"></script>
+</head>
+
+<body>
+	<!-- Copy tu day-->
+	<div th:replace="admin/fragments/header :: header_nav"></div>
+	<div id="layoutSidenav">
+		<div th:replace="admin/fragments/side_navbar :: side_navbarS"></div>
+		<!-- Copy den day-->
+		<div id="layoutSidenav_content">
+			<main>
+				<div class="container-fluid px-4">
+					<h1 class="mt-4">Static Navigation</h1>
+					<ol class="breadcrumb mb-4">
+						<li class="breadcrumb-item">
+							<a th:href="@{/admin}">Dashboard</a>
+						</li>
+						<li class="breadcrumb-item">
+							<a th:href="@{/admin/orders}">Đơn hàng</a>
+						</li>
+						<li class="breadcrumb-item active">Cập nhật Đơn hàng</li>
+					</ol>
+
+					<!-- Chỗ cần thay đổi -->
+					<div class="container mt-5">
+						<h2>Thêm đơn hàng</h2>
+						<form>
+							<div class="form-row">
+								<div class="form-group col-md-8">
+									<label for="receiverName">Người nhận</label>
+									<input type="text" class="form-control" id="receiverName"
+										placeholder="Nhập tên người nhận">
+								</div>
+								<div class="form-group col-md-8">
+									<label for="phoneNumber">Số điện thoại</label>
+									<input type="text" class="form-control" id="phoneNumber"
+										placeholder="Nhập số điện thoại">
+								</div>
+							</div>
+							<div class="form-group col-md-8">
+								<label for="email">Email</label>
+								<input type="email" class="form-control" id="email" placeholder="Nhập địa chỉ email">
+							</div>
+							<div class="form-group col-md-8">
+								<label for="shippingAddress">Địa chỉ giao hàng</label>
+								<input type="text" class="form-control" id="shippingAddress"
+									placeholder="Nhập địa chỉ giao hàng">
+							</div>
+							<div class="form-group col-md-8">
+								<label for="shippingMethod">Phương thức giao hàng</label>
+								<select class="form-control" id="shippingMethod">
+									<option value="standard">Giao hàng tiêu chuẩn</option>
+									<option value="express">Giao hàng nhanh</option>
+								</select>
+							</div>
+							<div class="form-group col-md-8">
+								<label for="paymentMethod">Phương thức thanh toán</label>
+								<select class="form-control" id="paymentMethod">
+									<option value="standard">Thanh toán khi nhận hàng</option>
+									<option value="express">Thanh toán online</option>
+								</select>
+							</div>
+							<div class="form-group col-md-8">
+								<label for="orderStatus">Trạng thái đơn hàng</label>
+								<select class="form-control" id="orderStatus">
+									<option value="pending">Chờ xử lý</option>
+									<option value="processing">Đang xử lý</option>
+									<option value="shipped">Đã giao hàng</option>
+									<option value="completed">Hoàn thành</option>
+									<option value="canceled">Đã hủy</option>
+								</select>
+							</div>
+							<hr>
+							<h4>Danh sách sản phẩm</h4>
+							<div class="form-group">
+								<input type="text" class="form-control" id="searchProduct"
+									placeholder="Tìm kiếm sản phẩm">
+							</div>
+							<div class="table-responsive">
+								<div>
+									<table class="table table-bordered" style="height: 10rem;">
+										<thead>
+											<tr>
+												<th>Tên sản phẩm</th>
+												<th>Tác giả</th>
+												<th>Đơn giá</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- Các sản phẩm được thêm vào đây -->
+											<tr>
+												<td>Sản phẩm B</td>
+												<td>Tác giả B</td>
+												<td>800000</td>
+												<td>
+													<button type="button" class="btn btn-primary btn-sm add-product"
+														data-product="2">Thêm</button>
+												</td>
+											</tr>
+											<tr>
+												<td>Sản phẩm A</td>
+												<td>Tác giả B</td>
+												<td>800000</td>
+												<td>
+													<button type="button" class="btn btn-primary btn-sm add-product"
+														data-product="2">Thêm</button>
+												</td>
+											</tr>
+											<tr>
+												<td>Sản phẩm D</td>
+												<td>Tác giả B</td>
+												<td>800000</td>
+												<td>
+													<button type="button" class="btn btn-primary btn-sm add-product"
+														data-product="2">Thêm</button>
+												</td>
+											</tr>
+											<tr>
+												<td>Sản phẩm E</td>
+												<td>Tác giả B</td>
+												<td>800000</td>
+												<td>
+													<button type="button" class="btn btn-primary btn-sm add-product"
+														data-product="2">Thêm</button>
+												</td>
+											</tr>
+											<!-- Các hàng khác tương tự -->
+										</tbody>
+									</table>
+								</div>
+							</div>
+
+							<div id="pagination" class="d-flex justify-content-center mt-3">
+								<!-- Các nút phân trang sẽ được thêm vào đây -->
+							</div>
+							<hr>
+							<h4>Danh sách sản phẩm trong đơn hàng</h4>
+
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>Tên sản phẩm</th>
+										<th>Tác giả</th>
+										<th>Số lượng</th>
+										<th>Đơn giá</th>
+										<th>Thành tiền</th>
+										<th></th>
+									</tr>
+								</thead>
+								<tbody id="selectedProducts">
+									<!-- Các sản phẩm được thêm vào đây -->
+								</tbody>
+							</table>
+
+							<div id="orderPagination" class="d-flex justify-content-center mt-3">
+								<!-- Các nút phân trang sẽ được thêm vào đây -->
+							</div>
+							<div class="form-group">
+								<label for="totalAmount">Tổng tiền</label>
+								<input type="text" class="form-control" id="totalAmount" readonly>
+							</div>
+							<button type="submit" class="btn btn-primary">Thêm đơn hàng</button>
+						</form>
+					</div>
+				</div>
+			</main>
+			<div th:replace="admin/fragments/footer :: footer"></div>
+		</div>
+	</div>
+	<script th:src=" @{/js/admin/bootstrap.bundle.min.js}" crossorigin="anonymous">
+	</script>
+	<script th:src="@{/js/admin/jquery-360.min.js}"></script>
+	<script th:src="@{/js/admin/scripts.js}"></script>
+	<script th:src="@{/js/admin/AddOrder.js}"></script>
+</body>
+
+</html>
