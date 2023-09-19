@@ -1,4 +1,4 @@
-package com.anhbui.bookstore.config;
+package com.anhbui.bookstore.config.deploy_to_heroku_config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -15,5 +15,4 @@ public class UserRoleId implements Serializable {
     private Long user;
     private Long role;
 
-    // Constructors, equals, hashcode methods, and other necessary logic
 }

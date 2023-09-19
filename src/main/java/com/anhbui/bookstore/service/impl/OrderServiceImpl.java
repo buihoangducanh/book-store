@@ -10,6 +10,7 @@ import com.anhbui.bookstore.entity.Order;
 import com.anhbui.bookstore.entity.OrderDetail;
 import com.anhbui.bookstore.entity.User;
 import com.anhbui.bookstore.repository.BookRepository;
+import com.anhbui.bookstore.repository.OrderDetailRepository;
 import com.anhbui.bookstore.repository.OrderRepository;
 import com.anhbui.bookstore.service.OrderService;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,7 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     private BookRepository bookRepository;
     private OrderRepository orderRepository;
+    private OrderDetailRepository orderDetailRepository;
 
     @Override
     public List<Order> getAllOrders() {
@@ -52,7 +54,15 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void setReceivedToOrder(Order order) {
         order.setStatus(OrderStatus.DELIVERED);
-        orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
+        List<OrderDetail> orderDetails = orderDetailRepository.findByOrder(savedOrder);
+        for (OrderDetail od :
+                orderDetails) {
+            Book book = od.getBook();
+            int oldCount = book.getBuyCount() != null ? book.getBuyCount() : 0;
+            book.setBuyCount(oldCount + od.getQuantity());
+            bookRepository.save(book);
+        }
     }
 
     @Override
@@ -128,9 +138,8 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Page<Order> getOrdersByStatus(String status, Pageable pageable) {
-        return orderRepository.findByStatus(status,pageable);
+        return orderRepository.findByStatus(status, pageable);
     }
-
 
 
 }
